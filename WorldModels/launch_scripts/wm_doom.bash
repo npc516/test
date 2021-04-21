@@ -1,8 +1,8 @@
 CONFIG_PATH=configs/doom.config
-for i in `seq 1 64`;
+for i in `seq 1 4`;
 do
   echo worker $i
-  CUDA_VISIBLE_DEVICES=-1 python extract.py -c $CONFIG_PATH &
+  CUDA_VISIBLE_DEVICES=-1 python3 extract.py -c $CONFIG_PATH &
   sleep 1.0
 done
 # can't just use 'wait' b/c doom env leaves processes open
@@ -14,7 +14,7 @@ do
   echo $N_RUNNING
 done
 pkill -9 -f vizdoom
-CUDA_VISIBLE_DEVICES=0 python vae_train.py -c $CONFIG_PATH
-CUDA_VISIBLE_DEVICES=0 python series.py -c $CONFIG_PATH
-CUDA_VISIBLE_DEVICES=0 python rnn_train.py -c $CONFIG_PATH
-CUDA_VISIBLE_DEVICES=-1 python train.py -c $CONFIG_PATH
+CUDA_VISIBLE_DEVICES=0 python3 vae_train.py -c $CONFIG_PATH
+CUDA_VISIBLE_DEVICES=0 python3 series.py -c $CONFIG_PATH
+CUDA_VISIBLE_DEVICES=0 python3 rnn_train.py -c $CONFIG_PATH
+CUDA_VISIBLE_DEVICES=-1 python3 train.py -c $CONFIG_PATH
